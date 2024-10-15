@@ -25,12 +25,12 @@ class AvatarFrame(tk.Frame):
         }
 
         self.layers = {
-            AvatarLayer.scene: "Assets/Scene/scene.png",
-            AvatarLayer.body: "Assets/Body/body.png",
-            AvatarLayer.head: "Assets/Body/face.png",
-            AvatarLayer.eyes: "Assets/Face/face.png",
-            AvatarLayer.mouth: "Assets/Face/face.png",
-            AvatarLayer.hair: "Assets/Hair/hair.png",
+            AvatarLayer.scene: "Assets/Scene/circle scene.png",
+            AvatarLayer.body: "Assets/Body/triangle body.png",
+            AvatarLayer.head: "Assets/Head/default square head.png",
+            AvatarLayer.eyes: "Assets/Eyes/default eyes open.png",
+            AvatarLayer.mouth: "Assets/Mouth/happy mouth.png",
+            AvatarLayer.hair: "Assets/Hair/medium length hair.png",
         }
 
         self.width = 162
@@ -53,25 +53,14 @@ class AvatarFrame(tk.Frame):
     def update_avatar(self):
         self.canvas.delete(tk.ALL)
 
-        scene_color = self.colors[AvatarLayer.scene]  
-        scene_img = Image.open(self.layers[AvatarLayer.scene])
-        self.scene_image = ImageTk.PhotoImage(self.change_color(scene_img, scene_color))
-        self.canvas.create_image(self.width, self.height, image=self.scene_image)
+        self.image_references = []
 
-        body_color = self.colors[AvatarLayer.body]  
-        body_img = Image.open(self.layers[AvatarLayer.body])
-        self.body_image = ImageTk.PhotoImage(self.change_color(body_img, body_color))
-        self.canvas.create_image(self.width, self.height, image=self.body_image)
-
-        face_color = self.colors[AvatarLayer.eyes]  
-        face_img = Image.open(self.layers[AvatarLayer.eyes])
-        self.face_image = ImageTk.PhotoImage(self.change_color(face_img, face_color))
-        self.canvas.create_image(self.width, self.height, image=self.face_image)
-
-        hair_color = self.colors[AvatarLayer.hair]  
-        hair_img = Image.open(self.layers[AvatarLayer.hair])
-        self.hair_image = ImageTk.PhotoImage(self.change_color(hair_img, hair_color))
-        self.canvas.create_image(self.width, self.height, image=self.hair_image)
+        for layer in AvatarLayer:
+            scene_color = self.colors[layer]  
+            scene_img = Image.open(self.layers[layer])
+            scene_image = ImageTk.PhotoImage(self.change_color(scene_img, scene_color))
+            self.image_references.append(scene_image)
+            self.canvas.create_image(self.width, self.height, image=scene_image)
 
 
     def change_color(self, image, replacement_color):
@@ -80,7 +69,7 @@ class AvatarFrame(tk.Frame):
 
         new_data = []
         for item in data:
-            if item[3] > 0:
+            if item[0] < 100 and item[0] < 100 and item[2] < 100 and item[3] > 0:
                 new_color = (
                     replacement_color[0],
                     replacement_color[1],

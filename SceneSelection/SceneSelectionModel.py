@@ -2,7 +2,7 @@ import os
 
 class SceneSelectionModel:
     def __init__(self):
-        self.images = list(filter(lambda file_name: file_name.split(".")[-1] == "png", os.listdir("Assets/Scene")))
+        self.images = []
         self.colors = [
             (255, 0, 0, 255), 
             (128, 0, 0, 255), 
