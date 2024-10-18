@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import ImageTk, Image, ImagePalette
 import enum
 import random
+from ImageProcessor import *
 
 class AvatarLayer(enum.Enum):
     scene = 1
@@ -14,6 +15,8 @@ class AvatarLayer(enum.Enum):
 class AvatarFrame(tk.Frame):
     def __init__(self, master = None, *args, **kvargs):
         super().__init__(master, *args, **kvargs)
+
+        self.image_processor = ImageProcessor()
 
         self.colors = {
             AvatarLayer.scene: (0,0,0,0),
@@ -54,13 +57,19 @@ class AvatarFrame(tk.Frame):
         self.canvas.delete(tk.ALL)
 
         self.image_references = []
+        
+        layers_png = []
 
         for layer in AvatarLayer:
             scene_color = self.colors[layer]  
             scene_img = Image.open(self.layers[layer])
-            scene_image = ImageTk.PhotoImage(self.change_color(scene_img, scene_color))
-            self.image_references.append(scene_image)
-            self.canvas.create_image(self.width, self.height, image=scene_image)
+            new_png = self.change_color(scene_img, scene_color)
+            layers_png.append(new_png)        
+        
+        overlay_image = self.image_processor.overlay_png_images(layers_png)
+        self.result_image = ImageTk.PhotoImage(overlay_image)
+
+        self.canvas.create_image(self.width, self.height, image=self.result_image)
 
 
     def change_color(self, image, replacement_color):
