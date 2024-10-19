@@ -1,12 +1,10 @@
 from xml.etree import ElementTree as ET
 from PIL import Image
+import cairosvg
 import io
-import os
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPM
 
 class ImageProcessor:
-    def change_svg_color(self, input_svg, old_color, new_color):
+    def change_svg_color(self, input_svg, new_color, old_color = "black"):
         tree = ET.parse(input_svg)
         root = tree.getroot()
 
@@ -15,22 +13,17 @@ class ImageProcessor:
         for elem in root.findall(f'.//svg:*[@fill="{old_color}"]', ns):
             elem.set('fill', new_color)
 
+        for elem in root.findall(f'.//svg:*[@stroke="{old_color}"]', ns):
+            elem.set('stroke', new_color)
+
         return ET.tostring(root, encoding='unicode')
 
     def convert_svg_to_png(self, svg_content):
-        temp_svg_path = "temp.svg"
-        with open(temp_svg_path, "w") as f:
-            f.write(svg_content)
-
-        drawing = svg2rlg(temp_svg_path)
-        png_data = renderPM.drawToString(drawing, fmt='PNG')
-        
-        os.remove(temp_svg_path)
-
+        png_data = cairosvg.svg2png(bytestring=svg_content.encode('utf-8'))
         return Image.open(io.BytesIO(png_data))
 
-    def process_image(self, input_svg, old_color, new_color):
-        svg_content = self.change_svg_color(input_svg, old_color, new_color)
+    def process_image(self, input_svg, new_color, old_color = "black"):
+        svg_content = self.change_svg_color(input_svg, old_color=old_color, new_color=new_color)
         png_image = self.convert_svg_to_png(svg_content)
         return png_image
 
@@ -47,5 +40,4 @@ class ImageProcessor:
     
     def overlay_svg_images(self, svg_images):
         png_images = map(lambda svg: self.convert_svg_to_png(svg), svg_images)
-        
         return self.overlay_png_images(png_images)

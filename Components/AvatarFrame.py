@@ -34,8 +34,8 @@ class AvatarFrame(tk.Frame):
         layers_png = []
         for layer in AvatarLayer:
             scene_color = self.character_singleton.get_color(layer)  
-            scene_img = Image.open(self.character_singleton.get_image(layer))
-            new_png = self.change_color(scene_img, scene_color)
+            scene_img = self.character_singleton.get_image(layer)
+            new_png = self.image_processor.process_image(scene_img, new_color=scene_color)
             layers_png.append(new_png)        
         
         overlay_image = self.image_processor.overlay_png_images(layers_png)

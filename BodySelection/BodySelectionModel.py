@@ -8,9 +8,9 @@ class Body(enum.Enum):
     def get_image_path(self):
         match self:
             case Body.triangle_body:
-                return "Assets/Body/triangle body.png"
+                return "Assets/Body/triangle body.svg"
             case Body.wide_rectangle_body:
-                return "Assets/Body/wide rectangle body.png"
+                return "Assets/Body/wide rectangle body.svg"
 
 
 class Head(enum.Enum):
@@ -21,16 +21,20 @@ class Head(enum.Enum):
     def get_image_path(self):
         match self:
             case Head.circle_head:
-                return "Assets/Head/default circle head.png"
+                return "Assets/Head/default circle head.svg"
             case Head.square_head:
-                return "Assets/Head/default square head.png"
+                return "Assets/Head/default square head.svg"
             case Head.wide_square_head:
-                return "Assets/Head/wide square head.png"
+                return "Assets/Head/wide square head.svg"
             
 
 class BodySelectionModel:
     def __init__(self):
         
+        self.selected_option_index = 0
+        self.selected_body_color_index = 0
+        self.selected_head_color_index = 0
+
         self.body_head_combinations: list[tuple[Body, Head]] = [
             (Body.triangle_body, Head.circle_head),
             (Body.triangle_body, Head.square_head),
@@ -38,25 +42,27 @@ class BodySelectionModel:
         ]
         
         self.body_colors = [
-            (255, 0, 0, 255), 
-            (128, 0, 0, 255), 
-            (255, 255, 0, 255),
-            (128, 128, 0, 255), 
-            (255, 255, 255, 255), 
-            (128, 128, 128, 255), 
-            (255, 128, 0, 255), 
-            (0, 128, 128, 255), 
-            (255, 0, 128, 255),
+            "#F25764",
+            "#4183D9",
+            "#F2C744",
+            "#F27052",
+            "#F2F2F2",
+            "#8773A5",
+            "#181828",
+            "#0B4048",
+            "#C9D9C3",
+            "#F4ECE0",
         ]        
 
         self.head_colors = [
-            (255, 0, 0, 255), 
-            (128, 0, 0, 255), 
-            (255, 255, 0, 255),
-            (128, 128, 0, 255), 
-            (255, 255, 255, 255), 
-            (128, 128, 128, 255), 
-            (255, 128, 0, 255), 
-            (0, 128, 128, 255), 
-            (255, 0, 128, 255),
+            "#F2AF88",
+            "#D98E73",
+            "#8C4A3B",
+            "#A65746",
+            "#BF5F56",
+            "#FBDDCE",
+            "#F5D3BF",
+            "#E2B29E",
+            "#F6D6C3",
+            "#ECA894",
         ]

@@ -1,5 +1,4 @@
 from AvatarLayer import *
-from PIL import ImageColor
 from ImageProcessor import *
 
 class CharacterSingleton:
@@ -15,21 +14,21 @@ class CharacterSingleton:
         self.image_processor = ImageProcessor()
 
         self.colors = {
-            AvatarLayer.scene: ImageColor.getrgb("gray"),
-            AvatarLayer.body: ImageColor.getrgb("gray"),
-            AvatarLayer.head: ImageColor.getrgb("gray"),
-            AvatarLayer.eyes: ImageColor.getrgb("gray"),
-            AvatarLayer.mouth: ImageColor.getrgb("gray"),
-            AvatarLayer.hair: ImageColor.getrgb("gray"),
+            AvatarLayer.scene: "black",
+            AvatarLayer.body: "orange",
+            AvatarLayer.head: "gray",
+            AvatarLayer.eyes: "blue",
+            AvatarLayer.mouth: "red",
+            AvatarLayer.hair: "brown",
         }
 
-        self.images = {
-            AvatarLayer.scene: "Assets/Scene/circle scene.png",
-            AvatarLayer.body: "Assets/Body/triangle body.png",
-            AvatarLayer.head: "Assets/Head/default square head.png",
-            AvatarLayer.eyes: "Assets/Eyes/default eyes open.png",
-            AvatarLayer.mouth: "Assets/Mouth/happy mouth.png",
-            AvatarLayer.hair: "Assets/Hair/medium length hair.png",
+        self.layers = {
+            AvatarLayer.scene: "Assets/Scene/square scene.svg",
+            AvatarLayer.body: "Assets/Body/triangle body.svg",
+            AvatarLayer.head: "Assets/Head/default square head.svg",
+            AvatarLayer.eyes: "Assets/Eyes/default eyes open.svg",
+            AvatarLayer.mouth: "Assets/Mouth/happy mouth.svg",
+            AvatarLayer.hair: "Assets/Hair/medium length hair.svg",
         }
 
     def set_color(self, layer: AvatarLayer, new_color: str):
@@ -39,11 +38,13 @@ class CharacterSingleton:
         return self.colors[layer]
 
     def set_image(self, layer: AvatarLayer, new_image: str):
-        self.images[layer] = new_image
+        self.layers[layer] = new_image
 
     def get_image(self, layer: AvatarLayer) -> str:
-        return self.images[layer]
+        return self.layers[layer]
     
     def get_layer_as_png(self, layer: AvatarLayer):
         color = self.colors[layer]
-        image = self.images[layer]
+        image_path = self.layers[layer]
+
+        return self.image_processor.process_image(image_path, new_color=color)
