@@ -1,6 +1,6 @@
 import tkinter as tk
 from Components.ScrollableFrame import *
-from Components.AvatarFrame import AvatarLayer
+from AvatarLayer import *
 from HairSelection.HairSelectionModel import *
 from Components.PaletteFrame import *
 from PIL import Image, ImageTk

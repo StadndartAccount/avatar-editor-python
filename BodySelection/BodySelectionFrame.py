@@ -2,7 +2,7 @@ import tkinter as tk
 from Components.ScrollableFrame import *
 from PIL import Image, ImageTk
 from BodySelection.BodySelectionModel import *
-from Components.AvatarFrame import AvatarLayer
+from AvatarLayer import *
 from Components.PaletteFrame import *
 from ImageProcessor import *
 
@@ -35,13 +35,15 @@ class BodyCollection(tk.Frame):
         content_frame = tk.Frame(self)
         content_frame.pack(fill=tk.BOTH, expand=True, side=tk.LEFT)
 
+        cell_side = 132
+
         for row in rows:
             row_frame = tk.Frame(content_frame)
             row_frame.pack(fill=tk.X, side=tk.TOP)
 
             for option in row:
-                body_image = Image.open(option[1].get_image_path()).resize((146, 146))
-                head_image = Image.open(option[0].get_image_path()).resize((146, 146))
+                body_image = Image.open(option[1].get_image_path()).resize((cell_side, cell_side))
+                head_image = Image.open(option[0].get_image_path()).resize((cell_side, cell_side))
 
                 overlay_image = self.image_processor.overlay_png_images([
                     body_image,
@@ -50,7 +52,7 @@ class BodyCollection(tk.Frame):
 
                 photo = ImageTk.PhotoImage(overlay_image)
 
-                item_frame = tk.Button(row_frame, image=photo, height=146, width=146, command=lambda combination=option: self.item_selected(combination))
+                item_frame = tk.Button(row_frame, image=photo, height=cell_side, width=cell_side, command=lambda combination=option: self.item_selected(combination))
                 item_frame.image = photo
                 item_frame.pack(padx=1, pady=1, side=tk.LEFT)
 
@@ -60,14 +62,14 @@ class BodyCollection(tk.Frame):
         body_color_label = tk.Label(palette_container_frame, text="Body")
         body_color_label.pack(fill=tk.X, expand=True)
 
-        body_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.body_colors)
+        body_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.body_colors, columns_number=3)
         body_palette_frame.pack(fill=tk.X, expand=True)
         body_palette_frame.delegate = body_palette_delegate
 
         head_color_label = tk.Label(palette_container_frame, text="Head")
         head_color_label.pack(fill=tk.X, expand=True)
 
-        head_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.head_colors)
+        head_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.head_colors, columns_number=3)
         head_palette_frame.pack(fill=tk.X, expand=True)
         head_palette_frame.delegate = head_palette_delegate
 

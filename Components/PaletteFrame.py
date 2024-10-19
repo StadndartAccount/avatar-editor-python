@@ -2,10 +2,9 @@ import tkinter as tk
 import numpy as np
 
 class PaletteFrame(tk.Frame):
-    def __init__(self, master, colors = [], *args, **kwargs):
+    def __init__(self, master, colors = [], columns_number = 2, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
-        columns_number = 2
         rows_number = int((len(colors) + columns_number - 1) / columns_number)
 
         rows = np.array_split(colors, rows_number)

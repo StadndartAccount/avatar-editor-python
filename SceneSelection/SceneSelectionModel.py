@@ -1,5 +1,3 @@
-import os
-
 class SceneSelectionModel:
     def __init__(self):
         self.images = []

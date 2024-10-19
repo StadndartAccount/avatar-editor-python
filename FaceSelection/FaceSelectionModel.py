@@ -1,5 +1,3 @@
-import os
-
 class FaceSelectionModel:
     def __init__(self):
         self.images = []

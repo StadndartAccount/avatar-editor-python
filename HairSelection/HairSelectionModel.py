@@ -1,5 +1,3 @@
-import os
-
 class HairSelectionModel:
     def __init__(self):
         self.images = []

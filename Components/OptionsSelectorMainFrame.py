@@ -4,7 +4,7 @@ from BodySelection.BodySelectionFrame import *
 from HairSelection.HairSelectionFrame import *
 from FaceSelection.FaceCollectionFrame import *
 from SceneSelection.SceneSelectionFrame import *
-from Components.AvatarFrame import AvatarLayer
+from AvatarLayer import *
 
 class OptionsSelectorMainFrame(tk.Frame):
     def __init__(self, master, *args, **kwargs):

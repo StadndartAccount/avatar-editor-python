@@ -1,5 +1,5 @@
 import tkinter as tk
-from Components.AvatarFrame import AvatarLayer
+from AvatarLayer import *
 
 class TabGroup(tk.Frame):
     def __init__(self, master, *args, **kwargs):
