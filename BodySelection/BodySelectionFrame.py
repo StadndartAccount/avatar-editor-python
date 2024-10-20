@@ -23,6 +23,7 @@ class BodyCollection(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.character_singleton = CharacterSingleton()
+
         self.model = BodySelectionModel()
         self.image_processor = ImageProcessor()
 
@@ -39,13 +40,6 @@ class BodyCollection(tk.Frame):
         palette_container_frame = tk.Frame(self)
         palette_container_frame.pack(fill=tk.X, expand=True, side=tk.LEFT, anchor=tk.N)
 
-        body_color_label = tk.Label(palette_container_frame, text="Clothes")
-        body_color_label.pack(fill=tk.X, expand=True)
-
-        body_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.body_colors, columns_number=3)
-        body_palette_frame.pack(fill=tk.X, expand=True)
-        body_palette_frame.delegate = body_palette_delegate
-
         head_color_label = tk.Label(palette_container_frame, text="Head")
         head_color_label.pack(fill=tk.X, expand=True)
 
@@ -53,6 +47,12 @@ class BodyCollection(tk.Frame):
         head_palette_frame.pack(fill=tk.X, expand=True)
         head_palette_frame.delegate = head_palette_delegate
 
+        body_color_label = tk.Label(palette_container_frame, text="Clothes")
+        body_color_label.pack(fill=tk.X, expand=True)
+
+        body_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.body_colors, columns_number=3)
+        body_palette_frame.pack(fill=tk.X, expand=True)
+        body_palette_frame.delegate = body_palette_delegate
 
     def update_content(self): 
         for widget in self.content_frame.winfo_children():
@@ -93,11 +93,11 @@ class BodyCollection(tk.Frame):
                     item_frame.image = photo
                     item_frame.pack(padx=1, pady=1, side=tk.LEFT)
 
-
+    
     def item_selected(self, body_head: tuple[Body, Head], index):
-        self.delegate.select_new_option(option=AvatarLayer.body, new_image=body_head[0].get_image_path())
-        self.delegate.select_new_option(option=AvatarLayer.head, new_image=body_head[1].get_image_path())
         self.model.selected_option_index = index
+        self.character_singleton.set_image(AvatarLayer.body, body_head[0].get_image_path())
+        self.character_singleton.set_image(AvatarLayer.head, body_head[1].get_image_path())
         self.update_content()
 
 
@@ -106,9 +106,9 @@ class BodyCollection(tk.Frame):
             case AvatarLayer.head:                
                 rgb_color = ImageColor.getrgb(new_color)
                 mouth_color = (rgb_color[0] - 30, rgb_color[1] - 30, rgb_color[2] - 30, 255)
-                self.delegate.select_new_color(AvatarLayer.mouth, new_color=rgb2hex(mouth_color))  
-                self.delegate.select_new_color(AvatarLayer.head, new_color=new_color)      
+                self.character_singleton.set_color(AvatarLayer.mouth, rgb2hex(mouth_color))  
+                self.character_singleton.set_color(AvatarLayer.head, new_color)      
             case _:
-                self.delegate.select_new_color(option=option, new_color=new_color)
-
+                self.character_singleton.set_color(option, new_color)
+        
         self.update_content()

@@ -18,6 +18,7 @@ class FaceCollection(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.character_singleton = CharacterSingleton()
+
         self.model = FaceSelectionModel()
         self.image_processor = ImageProcessor()
 
@@ -80,15 +81,15 @@ class FaceCollection(tk.Frame):
                     item_frame = tk.Button(row_frame, image=photo, height=cell_side, width=cell_side, command=lambda combination=option, index=current_index: self.item_selected(combination, index))
                     item_frame.image = photo
                     item_frame.pack(padx=1, pady=1, side=tk.LEFT)
-
-
+    
+    
     def item_selected(self, face: Face, index):
-        self.delegate.select_new_option(option=AvatarLayer.mouth, new_image=face.mouth.get_image_path())
-        self.delegate.select_new_option(option=AvatarLayer.eyes, new_image=face.eyes.get_image_path())
         self.model.selected_option_index = index
+        self.character_singleton.set_image(AvatarLayer.mouth, face.mouth.get_image_path())
+        self.character_singleton.set_image(AvatarLayer.eyes, face.eyes.get_image_path())
         self.update_content()
 
 
     def select_new_color(self, option, new_color):
-        self.delegate.select_new_color(option=option, new_color=new_color)        
+        self.character_singleton.set_color(option, new_color)        
         self.update_content()

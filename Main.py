@@ -18,23 +18,14 @@ class Main:
         self.avatar_frame.pack(fill=tk.X)
         self.avatar_frame.configure(height=280) # temp
 
-        options_selector_frame = OptionsSelectorMainFrame(root, background="white")
+        options_selector_frame = OptionsSelectorMainFrame(root)
         options_selector_frame.pack(fill=tk.BOTH, expand=True)
-        options_selector_frame.delegate = self
 
         root.mainloop()
 
 
     def export(self):
-        self.model.export_avatar()
-
-
-    def select_new_option(self, option, new_image):
-        self.avatar_frame.set_new_option_value(option, new_image)
-
-
-    def select_new_color(self, option, new_color):
-        self.avatar_frame.update_option_color(option, new_color)
+        print("export")
 
 
 Main()

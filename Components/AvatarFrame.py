@@ -10,22 +10,13 @@ class AvatarFrame(tk.Frame):
 
         self.image_processor = ImageProcessor()
         self.character_singleton = CharacterSingleton()
+        self.character_singleton.add_observer(self)
 
         self.width = 162
         self.height = 162
 
         self.canvas = tk.Canvas(self, width=320, height=320)
         self.canvas.pack()
-
-
-    def set_new_option_value(self, option, new_image_path):
-        self.character_singleton.set_image(option, new_image_path)
-        self.update_avatar()
-
-
-    def update_option_color(self, option, new_color):
-        self.character_singleton.set_color(option, new_color)
-        self.update_avatar()
 
 
     def update_avatar(self):
@@ -64,3 +55,7 @@ class AvatarFrame(tk.Frame):
 
         image.putdata(new_data)
         return image
+    
+    
+    def handle_character_changes(self):
+        self.update_avatar()

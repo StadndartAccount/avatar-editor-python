@@ -18,6 +18,7 @@ class HairCollection(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.character_singleton = CharacterSingleton()
+
         self.model = HairSelectionModel()
         self.image_processor = ImageProcessor()
 
@@ -79,11 +80,11 @@ class HairCollection(tk.Frame):
 
 
     def item_selected(self, hair: Hair, index):
-        self.delegate.select_new_option(option=AvatarLayer.hair, new_image=hair.get_image_path())
         self.model.selected_option_index = index
+        self.character_singleton.set_image(AvatarLayer.hair, hair.get_image_path())
         self.update_content()
 
 
     def select_new_color(self, option, new_color):
-        self.delegate.select_new_color(option=option, new_color=new_color)        
+        self.character_singleton.set_color(option, new_color)        
         self.update_content()

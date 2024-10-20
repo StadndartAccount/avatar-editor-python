@@ -17,6 +17,7 @@ class SceneCollection(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.character_singleton = CharacterSingleton()
+        
         self.model = SceneSelectionModel()
         self.image_processor = ImageProcessor()
 
@@ -25,17 +26,16 @@ class SceneCollection(tk.Frame):
 
         self.content_frame = tk.Frame(self)
         self.content_frame.pack(fill=tk.BOTH, expand=True, side=tk.LEFT)
-
         self.update_content()
 
         palette_container_frame = tk.Frame(self)
-        palette_container_frame.pack(fill=tk.X, expand=True, side=tk.LEFT, anchor=tk.N)
+        palette_container_frame.pack(fill=tk.X, expand=False, side=tk.LEFT, anchor=tk.N)
 
         scene_color_label = tk.Label(palette_container_frame, text="Scene")
-        scene_color_label.pack(fill=tk.X, expand=True)
+        scene_color_label.pack(fill=tk.X, expand=False)
 
         scene_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.colors, columns_number=3)
-        scene_palette_frame.pack(fill=tk.X, expand=True)
+        scene_palette_frame.pack(fill=tk.X, expand=False)
         scene_palette_frame.delegate = scene_palette_delegate
 
 
@@ -50,7 +50,7 @@ class SceneCollection(tk.Frame):
 
         for row_index, row in enumerate(rows):
             row_frame = tk.Frame(self.content_frame)
-            row_frame.pack(fill=tk.X, side=tk.TOP)
+            row_frame.pack(fill=tk.X, expand=True, side=tk.TOP)
 
             for option_index, option in enumerate(row):
                 scene_image = self.image_processor.process_image(option.get_image_path(), self.character_singleton.get_color(AvatarLayer.scene)).resize((cell_side, cell_side))
@@ -71,11 +71,11 @@ class SceneCollection(tk.Frame):
 
 
     def item_selected(self, scene: Scene, index):
-        self.delegate.select_new_option(option=AvatarLayer.scene, new_image=scene.get_image_path())
         self.model.selected_option_index = index
+        self.character_singleton.set_image(AvatarLayer.scene, scene.get_image_path())
         self.update_content()
 
 
     def select_new_color(self, option, new_color):
-        self.delegate.select_new_color(option=option, new_color=new_color)        
+        self.character_singleton.set_color(option, new_color)        
         self.update_content()

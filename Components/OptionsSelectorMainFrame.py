@@ -17,20 +17,13 @@ class OptionsSelectorMainFrame(tk.Frame):
         scroll_frame = ScrollableFrame(self)
         scroll_frame.pack(fill=tk.BOTH, expand=True)
 
-        tab_content_frame = tk.Frame(scroll_frame.scrollable_frame, background="gray", width=700)
+        tab_content_frame = tk.Frame(scroll_frame.scrollable_frame,)
         tab_content_frame.pack(fill=tk.BOTH, expand=True)
 
         body_options_frame = BodyCollection(tab_content_frame)
-        body_options_frame.delegate = self
-
         hair_options_frame = HairCollection(tab_content_frame)
-        hair_options_frame.delegate = self
-
         face_options_frame = FaceCollection(tab_content_frame)
-        face_options_frame.delegate = self
-
         scene_options_frame = SceneCollection(tab_content_frame)
-        scene_options_frame.delegate = self
 
         self.tabs = {
             AvatarLayer.body: body_options_frame,
@@ -45,10 +38,5 @@ class OptionsSelectorMainFrame(tk.Frame):
             self.tabs[option].pack_forget()
             
         self.tabs[selected_option].pack(fill=tk.BOTH, expand=True)
-
-    def select_new_option(self, option, new_image):
-        self.delegate.select_new_option(option, new_image)
-    
-    def select_new_color(self, option, new_color):
-        self.delegate.select_new_color(option, new_color)
+        self.tabs[selected_option].update_content()
                 
