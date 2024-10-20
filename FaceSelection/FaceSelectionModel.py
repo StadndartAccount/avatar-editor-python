@@ -1,29 +1,4 @@
-import enum
-
-
-class Mouth(enum.Enum):
-    happy = 0
-    sad = 1
-
-    def get_image_path(self):
-        match self:
-            case Mouth.happy:
-                return "Assets/Mouth/happy mouth.svg"
-            case Mouth.sad:
-                return "Assets/Mouth/sad mouth.svg"
-
-
-class Eyes(enum.Enum):
-    half_open = 0
-    open = 1
-
-    def get_image_path(self):
-        match self:
-            case Eyes.half_open:
-                return "Assets/Eyes/default eyes half-open.svg"
-            case Eyes.open:
-                return "Assets/Eyes/default eyes open.svg"
-
+from Avatar import Eyes, Mouth
 
 class Face:
     def __init__(self, mouth: Mouth, eyes: Eyes):

@@ -1,32 +1,11 @@
-import enum
+from Avatar import Head, Body
 
 
-class Body(enum.Enum):
-    triangle_body = 0
-    wide_rectangle_body = 1
+class Silhouette:
+    def __init__(self, body: Body, head: Head):
+        self.body: Body = body
+        self.head: Head = head
 
-    def get_image_path(self):
-        match self:
-            case Body.triangle_body:
-                return "Assets/Body/triangle body.svg"
-            case Body.wide_rectangle_body:
-                return "Assets/Body/wide rectangle body.svg"
-
-
-class Head(enum.Enum):
-    circle_head = 0
-    square_head = 1
-    wide_square_head = 2
-
-    def get_image_path(self):
-        match self:
-            case Head.circle_head:
-                return "Assets/Head/default circle head.svg"
-            case Head.square_head:
-                return "Assets/Head/default square head.svg"
-            case Head.wide_square_head:
-                return "Assets/Head/wide square head.svg"
-            
 
 class BodySelectionModel:
     def __init__(self):
@@ -35,10 +14,10 @@ class BodySelectionModel:
         self.selected_body_color_index = 0
         self.selected_head_color_index = 0
 
-        self.body_head_combinations: list[tuple[Body, Head]] = [
-            (Body.triangle_body, Head.circle_head),
-            (Body.triangle_body, Head.square_head),
-            (Body.wide_rectangle_body, Head.wide_square_head),            
+        self.body_head_combinations: list[Silhouette] = [
+            Silhouette(Body.triangle_body, Head.circle_head),
+            Silhouette(Body.triangle_body, Head.square_head),
+            Silhouette(Body.wide_rectangle_body, Head.wide_square_head),            
         ]
         
         self.body_colors = [

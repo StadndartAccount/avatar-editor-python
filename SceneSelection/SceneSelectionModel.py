@@ -1,17 +1,4 @@
-import enum
-
-
-class Scene(enum.Enum):
-    solid = 0
-    stripes = 1
-
-    def get_image_path(self):
-        match self:
-            case Scene.solid:
-                return "Assets/Scene/square scene.svg"
-            case Scene.stripes:
-                return "Assets/Scene/stripes square scene.svg"
-
+from Avatar import Scene
 
 class SceneSelectionModel:
     def __init__(self):

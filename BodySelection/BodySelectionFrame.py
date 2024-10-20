@@ -13,7 +13,8 @@ from Tools import split_into_chunks
 class BodyPaletteDelegate:
     def handle_clicked_color(self, new_color):
         self.delegate.select_new_color(option=AvatarLayer.body, new_color=new_color)
- 
+
+
 class HeadPaletteDelegate:
     def handle_clicked_color(self, new_color):
         self.delegate.select_new_color(option=AvatarLayer.head, new_color=new_color)
@@ -54,6 +55,7 @@ class BodyCollection(tk.Frame):
         body_palette_frame.pack(fill=tk.X, expand=True)
         body_palette_frame.delegate = body_palette_delegate
 
+
     def update_content(self): 
         for widget in self.content_frame.winfo_children():
             widget.destroy()
@@ -69,8 +71,8 @@ class BodyCollection(tk.Frame):
 
             for option_index, option in enumerate(row):
                 hair_image = self.character_singleton.get_layer_as_png(AvatarLayer.hair).resize((cell_side, cell_side))
-                head_image = self.image_processor.process_image(option[1].get_image_path(), self.character_singleton.get_color(AvatarLayer.head)).resize((cell_side, cell_side))
-                body_image = self.image_processor.process_image(option[0].get_image_path(), self.character_singleton.get_color(AvatarLayer.body)).resize((cell_side, cell_side))
+                head_image = self.image_processor.process_image(option.head.get_image_path(), self.character_singleton.get_color(AvatarLayer.head)).resize((cell_side, cell_side))
+                body_image = self.image_processor.process_image(option.body.get_image_path(), self.character_singleton.get_color(AvatarLayer.body)).resize((cell_side, cell_side))
 
                 overlay_image = self.image_processor.overlay_png_images([
                     body_image,
@@ -94,10 +96,10 @@ class BodyCollection(tk.Frame):
                     item_frame.pack(padx=1, pady=1, side=tk.LEFT)
 
     
-    def item_selected(self, body_head: tuple[Body, Head], index):
+    def item_selected(self, silhouette: Silhouette, index):
         self.model.selected_option_index = index
-        self.character_singleton.set_image(AvatarLayer.body, body_head[0].get_image_path())
-        self.character_singleton.set_image(AvatarLayer.head, body_head[1].get_image_path())
+        self.character_singleton.set_image(AvatarLayer.body, silhouette.body.get_image_path())
+        self.character_singleton.set_image(AvatarLayer.head, silhouette.head.get_image_path())
         self.update_content()
 
 
