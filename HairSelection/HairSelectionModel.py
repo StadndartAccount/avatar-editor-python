@@ -3,13 +3,12 @@ from Avatar import Hair
 
 class HairSelectionModel:
     def __init__(self):
-        self.selected_option_index = 0
 
         self.options: list[Hair] = [
+            Hair.short_messy_hair,
             Hair.bang_hair,
             Hair.medium_length_hair,
             Hair.short_hair,
-            Hair.short_messy_hair,
         ]
 
         self.colors = [
@@ -24,3 +23,6 @@ class HairSelectionModel:
             "#CA3528",
             "#A72111",
         ]
+        
+        self.selected_option = self.options[0]
+        self.selected_color = self.colors[0]

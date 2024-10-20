@@ -9,13 +9,7 @@ class Silhouette:
 
 class BodySelectionModel:
     def __init__(self):
-        
-        self.selected_option_index = 0
-        self.selected_body_color_index = 0
-        self.selected_head_color_index = 0
-
-        self.body_head_combinations: list[Silhouette] = [
-            Silhouette(Body.triangle_body, Head.circle_head),
+        self.options: list[Silhouette] = [
             Silhouette(Body.triangle_body, Head.square_head),
             Silhouette(Body.wide_rectangle_body, Head.wide_square_head),            
         ]
@@ -45,3 +39,7 @@ class BodySelectionModel:
             "#F6D6C3",
             "#ECA894",
         ]
+
+        self.selected_option = self.options[0]
+        self.selected_body_color = self.body_colors[0]
+        self.selected_head_color = self.head_colors[0]

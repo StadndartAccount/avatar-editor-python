@@ -1,5 +1,7 @@
 from AvatarLayer import *
 from ImageProcessor import *
+from Avatar import *
+
 
 class CharacterSingleton:
     _instance = None
@@ -18,20 +20,20 @@ class CharacterSingleton:
 
         self.colors = {
             AvatarLayer.scene: "black",
-            AvatarLayer.body: "orange",
-            AvatarLayer.head: "gray",
-            AvatarLayer.eyes: "blue",
-            AvatarLayer.mouth: "red",
-            AvatarLayer.hair: "brown",
+            AvatarLayer.body: "black",
+            AvatarLayer.head: "black",
+            AvatarLayer.eyes: "black",
+            AvatarLayer.mouth: "black",
+            AvatarLayer.hair: "black",
         }
 
         self.layers = {
-            AvatarLayer.scene: "Assets/Scene/square scene.svg",
-            AvatarLayer.body: "Assets/Body/triangle body.svg",
-            AvatarLayer.head: "Assets/Head/default square head.svg",
-            AvatarLayer.eyes: "Assets/Eyes/default eyes open.svg",
-            AvatarLayer.mouth: "Assets/Mouth/happy mouth.svg",
-            AvatarLayer.hair: "Assets/Hair/medium length hair.svg",
+            AvatarLayer.scene: Scene.solid.get_image_path(),
+            AvatarLayer.body: Body.triangle_body.get_image_path(),
+            AvatarLayer.head: Head.square_head.get_image_path(),
+            AvatarLayer.eyes: Eyes.open.get_image_path(),
+            AvatarLayer.mouth: Mouth.happy.get_image_path(),
+            AvatarLayer.hair: Hair.short_messy_hair.get_image_path(),
         }
 
 

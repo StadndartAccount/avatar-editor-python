@@ -7,7 +7,7 @@ class Main:
     def __init__(self):
         root = tk.Tk()
         root.title("Avatar Creator")
-        root.geometry("560x720")
+        root.geometry("584x720")
         root.resizable(False, False)
 
         header_frame = HeaderFrame(root, background="white")

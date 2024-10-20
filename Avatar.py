@@ -26,14 +26,11 @@ class Body(enum.Enum):
 
 
 class Head(enum.Enum):
-    circle_head = 0
     square_head = 1
     wide_square_head = 2
 
     def get_image_path(self):
         match self:
-            case Head.circle_head:
-                return "Assets/Head/default circle head.svg"
             case Head.square_head:
                 return "Assets/Head/default square head.svg"
             case Head.wide_square_head:
@@ -80,14 +77,3 @@ class Hair(enum.Enum):
                 return "Assets/Hair/short hair.svg"
             case Hair.short_messy_hair:
                 return "Assets/Hair/short messy hair.svg"
-
-
-class Avatar():
-    def __init__(self):
-        self.scene: Scene = Scene.solid
-        self.body: Body = Scene.solid
-        self.head: Head = Scene.solid
-        self.eyes: Eyes = Scene.solid
-        self.mouth: Mouth = Mouth.happy
-        self.hair: Hair = Hair.short_messy_hair
-      

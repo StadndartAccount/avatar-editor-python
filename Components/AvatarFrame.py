@@ -18,6 +18,8 @@ class AvatarFrame(tk.Frame):
         self.canvas = tk.Canvas(self, width=320, height=320)
         self.canvas.pack()
 
+        self.update_avatar()
+
 
     def update_avatar(self):
         self.canvas.delete(tk.ALL)

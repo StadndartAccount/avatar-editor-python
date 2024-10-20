@@ -7,8 +7,6 @@ class Face:
 
 class FaceSelectionModel:
     def __init__(self):
-        self.selected_option_index = 0
-
         self.options: list[Face] = [
             Face(Mouth.happy, Eyes.open),
             Face(Mouth.sad, Eyes.open),
@@ -23,3 +21,6 @@ class FaceSelectionModel:
             "#E27F57",
             "#7966D9",
         ]
+
+        self.selected_option = self.options[0]
+        self.selected_color = self.colors[0]
