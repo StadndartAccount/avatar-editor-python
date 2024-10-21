@@ -1,21 +1,20 @@
 import tkinter as tk
-from AvatarLayer import *
+from Tab import *
 
 class TabGroup(tk.Frame):
-    def __init__(self, master, *args, **kwargs):
+    def __init__(self, master, selected_tab = None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
-        button_1 = tk.Button(self, height=2, width=1, text="BODY", command=lambda: self.select_tab(AvatarLayer.body))
-        button_1.pack(pady=4, side=tk.LEFT, padx=4, fill=tk.X, expand=True)
-
-        button_2 = tk.Button(self, height=2, width=1, text="HAIR", command=lambda: self.select_tab(AvatarLayer.hair))
-        button_2.pack(pady=4, side=tk.LEFT, padx=4, fill=tk.X, expand=True)
-
-        button_3 = tk.Button(self, height=2, width=1, text="FACE", command=lambda: self.select_tab(AvatarLayer.eyes))
-        button_3.pack(pady=4, side=tk.LEFT, padx=4, fill=tk.X, expand=True)
-
-        button_4 = tk.Button(self, height=2, width=1, text="SCENE", command=lambda: self.select_tab(AvatarLayer.scene) )
-        button_4.pack(pady=4, side=tk.LEFT, padx=4, fill=tk.X, expand=True)
+        for tab in Tab:
+            if tab == selected_tab:
+                border_frame = tk.Frame(self, bg="white")
+                border_frame.pack(pady=4, side=tk.LEFT, padx=4, fill=tk.X, expand=True)
+                tab_frame = tk.Button(border_frame, height=2, width=1, text=tab.get_name(), command=lambda value=tab: self.select_tab(value))
+                tab_frame.pack(padx=2, pady=2, fill=tk.BOTH, expand=True)
+            else:
+                tab_frame = tk.Button(self, height=2, width=1, text=tab.get_name(), command=lambda value=tab: self.select_tab(value))
+                tab_frame.pack(pady=4, side=tk.LEFT, padx=4, fill=tk.X, expand=True)
+        
 
     def select_tab(self, selected_option):
         self.delegate.select_tab(selected_option)

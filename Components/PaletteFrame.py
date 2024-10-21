@@ -33,7 +33,7 @@ class PaletteFrame(tk.Frame):
 
             for color in row_colors:
                 if color == self.selected_color:
-                    item_border = tk.Frame(row_frame, bg="red")
+                    item_border = tk.Frame(row_frame, bg="black")
                     color_square = tk.Frame(item_border, height=side_length - border_width*2, width=side_length - border_width*2, background=color)
                     item_border.pack(padx=margin, pady=margin, side=tk.LEFT)
                     color_square.pack(padx=border_width, pady=border_width, expand=True)

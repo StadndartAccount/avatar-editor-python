@@ -46,9 +46,11 @@ class SceneCollection(tk.Frame):
         scene_palette_frame.delegate = self.scene_palette_delegate
 
         columns_number = 3
-        
-        rows = split_into_chunks(self.model.options, columns_number)
         cell_side = 132
+        border_width = 2
+        margin = 4
+
+        rows = split_into_chunks(self.model.options, columns_number)
 
         for row in rows:
             row_frame = tk.Frame(self.content_frame)
@@ -59,15 +61,15 @@ class SceneCollection(tk.Frame):
                 photo = ImageTk.PhotoImage(scene_image)
                 
                 if option == self.model.selected_option:
-                    item_border = tk.Frame(row_frame, height=cell_side, width=cell_side, bg="red")
-                    item_frame = tk.Button(item_border, image=photo, height=cell_side, width=cell_side)
+                    item_border = tk.Frame(row_frame, bg="white")
+                    item_frame = tk.Button(item_border, image=photo, height=cell_side - border_width*2, width=cell_side - border_width*2)
                     item_frame.image = photo
-                    item_border.pack(padx=1, pady=1, side=tk.LEFT)
-                    item_frame.pack(padx=2, pady=2)
+                    item_border.pack(padx=margin, pady=margin, side=tk.LEFT)
+                    item_frame.pack(padx=border_width, pady=border_width)
                 else:
-                    item_frame = tk.Button(row_frame, image=photo, height=cell_side, width=cell_side, command=lambda combination=option: self.item_selected(combination))
+                    item_frame = tk.Button(row_frame, image=photo, height=cell_side, width=cell_side, command=lambda scene=option: self.item_selected(scene))
                     item_frame.image = photo
-                    item_frame.pack(padx=1, pady=1, side=tk.LEFT)
+                    item_frame.pack(padx=margin, pady=margin, side=tk.LEFT)
 
 
     def item_selected(self, scene: Scene):
