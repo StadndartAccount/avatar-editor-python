@@ -20,20 +20,22 @@ class CharacterSingleton:
 
         self.colors = {
             AvatarLayer.scene: "black",
+            AvatarLayer.back_hair: "black",
             AvatarLayer.body: "black",
             AvatarLayer.head: "black",
             AvatarLayer.eyes: "black",
             AvatarLayer.mouth: "black",
-            AvatarLayer.hair: "black",
+            AvatarLayer.front_hair: "black",
         }
 
         self.layers = {
             AvatarLayer.scene: Scene.solid.get_image_path(),
-            AvatarLayer.body: Body.triangle_body.get_image_path(),
+            AvatarLayer.back_hair: HairFront.none.get_image_path(),
+            AvatarLayer.body: Body.slim_body_1.get_image_path(),
             AvatarLayer.head: Head.square_head.get_image_path(),
             AvatarLayer.eyes: Eyes.open.get_image_path(),
             AvatarLayer.mouth: Mouth.happy.get_image_path(),
-            AvatarLayer.hair: Hair.short_messy_hair.get_image_path(),
+            AvatarLayer.front_hair: HairFront.none.get_image_path(),
         }
 
 

@@ -52,7 +52,7 @@ class OptionsSelectorMainFrame(tk.Frame):
         for widget in self.tab_container_frame.winfo_children():
             widget.destroy()
 
-        selector_frame = TabGroup(self.tab_container_frame, selected_tab=self.selected_tab, bg="gray")
+        selector_frame = TabGroup(self.tab_container_frame, selected_tab=self.selected_tab, bg="white")
         selector_frame.pack(fill=tk.X)
         selector_frame.delegate = self
 

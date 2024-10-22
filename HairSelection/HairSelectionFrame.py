@@ -11,7 +11,7 @@ from Tools import split_into_chunks
 
 class HairPaletteDelegate:
     def handle_clicked_color(self, new_color):
-        self.delegate.select_new_color(option=AvatarLayer.hair, new_color=new_color)
+        self.delegate.select_new_color(new_color=new_color)
 
 
 class HairCollection(tk.Frame):
@@ -26,7 +26,7 @@ class HairCollection(tk.Frame):
         self.hair_palette_delegate.delegate = self
 
         self.item_selected(self.model.selected_option)
-        self.select_new_color(AvatarLayer.hair, self.model.selected_color)
+        self.select_new_color(self.model.selected_color)
 
 
     def update_content(self): 
@@ -58,18 +58,20 @@ class HairCollection(tk.Frame):
             row_frame.pack(fill=tk.X, side=tk.TOP)
 
             for option in row:
-                hair_image = self.image_processor.process_image(option.get_image_path(), self.character_singleton.get_color(AvatarLayer.hair)).resize((cell_side, cell_side))
+                back_hair_image = self.image_processor.process_image(option.back.get_image_path(), self.character_singleton.get_color(AvatarLayer.back_hair)).resize((cell_side, cell_side))
                 head_image = self.image_processor.process_image(Head.square_head.get_image_path(), self.character_singleton.get_color(AvatarLayer.head)).resize((cell_side, cell_side))
+                front_hair_image = self.image_processor.process_image(option.front.get_image_path(), self.character_singleton.get_color(AvatarLayer.front_hair)).resize((cell_side, cell_side))
 
                 overlay_image = self.image_processor.overlay_png_images([
+                    back_hair_image,
                     head_image,
-                    hair_image,
+                    front_hair_image,
                 ])
                 
                 photo = ImageTk.PhotoImage(overlay_image)
                 
                 if option == self.model.selected_option:
-                    item_border = tk.Frame(row_frame, bg="white")
+                    item_border = tk.Frame(row_frame, bg="black")
                     item_frame = tk.Button(item_border, image=photo, height=cell_side - border_width*2, width=cell_side - border_width*2)
                     item_frame.image = photo
                     item_border.pack(padx=margin, pady=margin, side=tk.LEFT)
@@ -80,13 +82,15 @@ class HairCollection(tk.Frame):
                     item_frame.pack(padx=margin, pady=margin, side=tk.LEFT)
 
 
-    def item_selected(self, hair: Hair):
-        self.model.selected_option = hair
-        self.character_singleton.set_image(AvatarLayer.hair, hair.get_image_path())
+    def item_selected(self, hair_container: HairContainer):
+        self.model.selected_option = hair_container
+        self.character_singleton.set_image(AvatarLayer.front_hair, hair_container.front.get_image_path())
+        self.character_singleton.set_image(AvatarLayer.back_hair, hair_container.back.get_image_path())
         self.update_content()
 
 
-    def select_new_color(self, option, new_color):
+    def select_new_color(self, new_color):
         self.model.selected_color = new_color
-        self.character_singleton.set_color(option, new_color)        
+        self.character_singleton.set_color(AvatarLayer.front_hair, new_color)        
+        self.character_singleton.set_color(AvatarLayer.back_hair, new_color)        
         self.update_content()

@@ -5,6 +5,9 @@ class SceneSelectionModel:
         self.options: list[Scene] = [
             Scene.solid,
             Scene.stripes,
+            Scene.circles,
+            Scene.paw,
+            Scene.paws,
         ]
 
         self.colors = [

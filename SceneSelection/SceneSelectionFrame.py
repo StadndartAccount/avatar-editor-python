@@ -61,7 +61,7 @@ class SceneCollection(tk.Frame):
                 photo = ImageTk.PhotoImage(scene_image)
                 
                 if option == self.model.selected_option:
-                    item_border = tk.Frame(row_frame, bg="white")
+                    item_border = tk.Frame(row_frame, bg="black")
                     item_frame = tk.Button(item_border, image=photo, height=cell_side - border_width*2, width=cell_side - border_width*2)
                     item_frame.image = photo
                     item_border.pack(padx=margin, pady=margin, side=tk.LEFT)

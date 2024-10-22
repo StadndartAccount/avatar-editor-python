@@ -4,37 +4,45 @@ import enum
 class Scene(enum.Enum):
     solid = 0
     stripes = 1
+    circles = 2
+    paw = 3
+    paws = 4
 
     def get_image_path(self):
         match self:
-            case Scene.solid:
-                return "Assets/Scene/square scene.svg"
-            case Scene.stripes:
-                return "Assets/Scene/stripes square scene.svg"
+            case Scene.solid: return "Assets/Scene/square scene.svg"
+            case Scene.stripes: return "Assets/Scene/stripes square scene.svg"
+            case Scene.circles: return "Assets/Scene/circles scene.svg"
+            case Scene.paw: return "Assets/Scene/paw.svg"
+            case Scene.paws: return "Assets/Scene/paws.svg"
 
 
 class Body(enum.Enum):
-    triangle_body = 0
-    wide_rectangle_body = 1
+    slim_body_1 = 0
+    slim_body_2 = 1
+    slim_body_3 = 2
+    wide_body_1 = 3
+    wide_body_2 = 4
+    wide_body_3 = 5
 
     def get_image_path(self):
         match self:
-            case Body.triangle_body:
-                return "Assets/Body/triangle body.svg"
-            case Body.wide_rectangle_body:
-                return "Assets/Body/wide rectangle body.svg"
+            case Body.slim_body_1: return "Assets/Body/slim body 1.svg"
+            case Body.slim_body_2: return "Assets/Body/slim body 2.svg"
+            case Body.slim_body_3: return "Assets/Body/slim body 3.svg"
+            case Body.wide_body_1: return "Assets/Body/wide body 1.svg"
+            case Body.wide_body_2: return "Assets/Body/wide body 2.svg"
+            case Body.wide_body_3: return "Assets/Body/wide body 3.svg"
 
 
 class Head(enum.Enum):
-    square_head = 1
-    wide_square_head = 2
+    square_head = 0
+    wide_square_head = 1
 
     def get_image_path(self):
         match self:
-            case Head.square_head:
-                return "Assets/Head/default square head.svg"
-            case Head.wide_square_head:
-                return "Assets/Head/wide square head.svg"
+            case Head.square_head: return "Assets/Head/square head.svg"
+            case Head.wide_square_head: return "Assets/Head/wide square head.svg"
             
 
 class Mouth(enum.Enum):
@@ -61,19 +69,37 @@ class Eyes(enum.Enum):
                 return "Assets/Eyes/default eyes open.svg"
 
 
-class Hair(enum.Enum):
-    bang_hair = 0
-    medium_length_hair = 1
-    short_hair = 2
-    short_messy_hair = 3
+class HairFront(enum.Enum):
+    none = 0
+    hair_1 = 1
+    hair_2 = 2
+    hair_3 = 3
+    hair_4 = 4
+    hair_5 = 5
+    hair_6 = 6
+    hair_7 = 7
 
     def get_image_path(self):
         match self:
-            case Hair.bang_hair:
-                return "Assets/Hair/bang hair.svg"
-            case Hair.medium_length_hair:
-                return "Assets/Hair/medium length hair.svg"
-            case Hair.short_hair:
-                return "Assets/Hair/short hair.svg"
-            case Hair.short_messy_hair:
-                return "Assets/Hair/short messy hair.svg"
+            case HairFront.none: return "Assets/Hair/none.svg"
+            case HairFront.hair_1: return "Assets/Hair/Front/front hair 1.svg"
+            case HairFront.hair_2: return "Assets/Hair/Front/front hair 2.svg"
+            case HairFront.hair_3: return "Assets/Hair/Front/front hair 3.svg"
+            case HairFront.hair_4: return "Assets/Hair/Front/front hair 4.svg"
+            case HairFront.hair_5: return "Assets/Hair/Front/front hair 5.svg"
+            case HairFront.hair_6: return "Assets/Hair/Front/front hair 6.svg"
+            case HairFront.hair_7: return "Assets/Hair/Front/front hair 7.svg"
+            
+
+class HairBack(enum.Enum):
+    none = 0
+    hair_1 = 1
+    hair_2 = 2
+    hair_3 = 3
+
+    def get_image_path(self):
+        match self:
+            case HairBack.none: return "Assets/Hair/none.svg"
+            case HairBack.hair_1: return "Assets/Hair/Back/back hair 1.svg"
+            case HairBack.hair_2: return "Assets/Hair/Back/back hair 2.svg"
+            case HairBack.hair_3: return "Assets/Hair/Back/back hair 3.svg"

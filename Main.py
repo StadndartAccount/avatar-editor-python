@@ -21,11 +21,11 @@ class Main:
         root.geometry("584x720")
         root.resizable(False, False)
 
-        header_frame = HeaderFrame(root, bg="gray")
+        header_frame = HeaderFrame(root, bg="white")
         header_frame.pack(fill=tk.X)
         header_frame.delegate = self
 
-        self.avatar_frame = AvatarFrame(root, bg="gray")
+        self.avatar_frame = AvatarFrame(root, bg="white")
         self.avatar_frame.pack(fill=tk.X)
         self.avatar_frame.configure(height=280) # temp
 

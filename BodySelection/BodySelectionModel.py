@@ -10,8 +10,12 @@ class Silhouette:
 class BodySelectionModel:
     def __init__(self):
         self.options: list[Silhouette] = [
-            Silhouette(Body.triangle_body, Head.square_head),
-            Silhouette(Body.wide_rectangle_body, Head.wide_square_head),            
+            Silhouette(Body.slim_body_3, Head.square_head),
+            Silhouette(Body.slim_body_1, Head.square_head),
+            Silhouette(Body.slim_body_2, Head.square_head),
+            Silhouette(Body.wide_body_1, Head.wide_square_head),            
+            Silhouette(Body.wide_body_2, Head.wide_square_head),            
+            Silhouette(Body.wide_body_3, Head.square_head),            
         ]
         
         self.body_colors = [

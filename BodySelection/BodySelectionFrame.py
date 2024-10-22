@@ -74,20 +74,22 @@ class BodyCollection(tk.Frame):
             row_frame.pack(fill=tk.X, side=tk.TOP)
 
             for option in row:
-                hair_image = self.character_singleton.get_layer_as_png(AvatarLayer.hair).resize((cell_side, cell_side))
-                head_image = self.image_processor.process_image(option.head.get_image_path(), self.character_singleton.get_color(AvatarLayer.head)).resize((cell_side, cell_side))
+                back_hair_image = self.character_singleton.get_layer_as_png(AvatarLayer.back_hair).resize((cell_side, cell_side))
                 body_image = self.image_processor.process_image(option.body.get_image_path(), self.character_singleton.get_color(AvatarLayer.body)).resize((cell_side, cell_side))
+                head_image = self.image_processor.process_image(option.head.get_image_path(), self.character_singleton.get_color(AvatarLayer.head)).resize((cell_side, cell_side))
+                front_hair_image = self.character_singleton.get_layer_as_png(AvatarLayer.front_hair).resize((cell_side, cell_side))
 
                 overlay_image = self.image_processor.overlay_png_images([
+                    back_hair_image,
                     body_image,
                     head_image,
-                    hair_image,
+                    front_hair_image,
                 ])
 
                 photo = ImageTk.PhotoImage(overlay_image)
                 
                 if option == self.model.selected_option:
-                    item_border = tk.Frame(row_frame, bg="white")
+                    item_border = tk.Frame(row_frame, bg="black")
                     item_frame = tk.Button(item_border, image=photo, height=cell_side - border_width*2, width=cell_side - border_width*2)
                     item_frame.image = photo
                     item_border.pack(padx=margin, pady=margin, side=tk.LEFT)
