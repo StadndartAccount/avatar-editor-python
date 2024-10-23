@@ -1,4 +1,6 @@
 from Avatar import Eyes, Mouth
+import Colors
+
 
 class Face:
     def __init__(self, mouth: Mouth, eyes: Eyes):
@@ -14,13 +16,7 @@ class FaceSelectionModel:
             Face(Mouth.sad, Eyes.half_open),
         ]
 
-        self.colors = [
-            "#0C99BF",
-            "#33B59B",
-            "#DB4F50",
-            "#E27F57",
-            "#7966D9",
-        ]
+        self.colors = Colors.eyes_colors
 
         self.selected_option = self.options[0]
         self.selected_color = self.colors[0]

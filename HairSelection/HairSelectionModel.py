@@ -1,4 +1,6 @@
 from Avatar import HairFront, HairBack
+import Colors
+
 
 class HairContainer:
     def __init__(self, front: HairFront, back: HairBack):
@@ -24,18 +26,7 @@ class HairSelectionModel:
             HairContainer(HairFront.none, HairBack.none),
         ]
 
-        self.colors = [
-            "#2D2623",
-            "#7F6343",
-            "#DDD39E",
-            "#D2B065",
-            "#C6812A",
-            "#A75C19",
-            "#90100A",
-            "#E96E45",
-            "#CA3528",
-            "#A72111",
-        ]
+        self.colors = Colors.hair_colors
         
         self.selected_option = self.options[0]
         self.selected_color = self.colors[0]

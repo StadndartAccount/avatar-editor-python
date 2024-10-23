@@ -1,5 +1,5 @@
 from Avatar import Head, Body
-
+import Colors
 
 class Silhouette:
     def __init__(self, body: Body, head: Head):
@@ -18,31 +18,8 @@ class BodySelectionModel:
             Silhouette(Body.wide_body_3, Head.square_head),            
         ]
         
-        self.body_colors = [
-            "#F25764",
-            "#4183D9",
-            "#F2C744",
-            "#F27052",
-            "#F2F2F2",
-            "#8773A5",
-            "#181828",
-            "#0B4048",
-            "#C9D9C3",
-            "#F4ECE0",
-        ]        
-
-        self.head_colors = [
-            "#F2AF88",
-            "#D98E73",
-            "#8C4A3B",
-            "#A65746",
-            "#BF5F56",
-            "#FBDDCE",
-            "#F5D3BF",
-            "#E2B29E",
-            "#F6D6C3",
-            "#ECA894",
-        ]
+        self.body_colors = Colors.clothes_colors        
+        self.head_colors = Colors.head_colors
 
         self.selected_option = self.options[0]
         self.selected_body_color = self.body_colors[0]

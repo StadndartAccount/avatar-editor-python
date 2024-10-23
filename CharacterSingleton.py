@@ -64,6 +64,10 @@ class CharacterSingleton:
         return self.image_processor.process_image(image_path, new_color=color)
     
 
+    def get_layer_info(self, layer: AvatarLayer) -> Layer:
+        return Layer(self.get_image(layer), self.get_color(layer))
+
+
     def add_observer(self, new_observer):
         self.event_observers.append(new_observer)
 

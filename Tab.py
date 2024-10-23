@@ -5,6 +5,7 @@ class Tab(enum.Enum):
     hair = 1
     face = 2
     scene = 3
+    history = 4
 
     def get_name(self) -> str:
         match self:
@@ -12,3 +13,4 @@ class Tab(enum.Enum):
             case Tab.hair: return "HAIR"
             case Tab.face: return "FACE"
             case Tab.scene: return "SCENE"            
+            case Tab.history: return "HISTORY"            

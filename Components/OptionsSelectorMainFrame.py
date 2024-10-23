@@ -4,6 +4,7 @@ from BodySelection.BodySelectionFrame import *
 from HairSelection.HairSelectionFrame import *
 from FaceSelection.FaceCollectionFrame import *
 from SceneSelection.SceneSelectionFrame import *
+from HistorySelection.HistoryCollectionFrame import *
 from Tab import *
 
 class OptionsSelectorMainFrame(tk.Frame):
@@ -25,12 +26,14 @@ class OptionsSelectorMainFrame(tk.Frame):
         self.hair_options_frame = HairCollection(tab_content_frame)
         self.face_options_frame = FaceCollection(tab_content_frame)
         self.scene_options_frame = SceneCollection(tab_content_frame)
+        self.history_frame = HistoryCollection(tab_content_frame)
 
         self.tabs = {
             Tab.body: self.body_options_frame,
             Tab.hair: self.hair_options_frame,
             Tab.face: self.face_options_frame,
-            Tab.scene: self.scene_options_frame
+            Tab.scene: self.scene_options_frame,
+            Tab.history: self.history_frame,
         }
 
         self.select_tab(Tab.body)

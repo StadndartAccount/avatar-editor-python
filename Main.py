@@ -9,6 +9,9 @@ from ImageProcessor import *
 from datetime import datetime
 import os
 import platform
+from DataProcessor import *
+import Colors
+import random
 
 
 class Main:
@@ -18,7 +21,7 @@ class Main:
 
         root = tk.Tk()
         root.title("Avatar Creator")
-        root.geometry("584x720")
+        root.geometry("616x720")
         root.resizable(False, False)
 
         header_frame = HeaderFrame(root, bg="white")
@@ -33,6 +36,50 @@ class Main:
         options_selector_frame.pack(fill=tk.BOTH, expand=True)
 
         root.mainloop()
+
+
+    def randomize_character(self):
+        head_color = random.choice(Colors.head_colors)
+        hair_color = random.choice(Colors.hair_colors)
+
+        for layer in AvatarLayer:
+            match layer:
+                case AvatarLayer.scene:
+                    self.character_singleton.set_color(layer, random.choice(Colors.scene_colors))
+                    self.character_singleton.set_image(layer, random.choice(list(Scene)).get_image_path())
+                case AvatarLayer.back_hair: 
+                    self.character_singleton.set_color(layer, hair_color)
+                    self.character_singleton.set_image(layer, random.choice(list(HairBack)).get_image_path())
+                case AvatarLayer.body: 
+                    self.character_singleton.set_color(layer, random.choice(Colors.clothes_colors))
+                    self.character_singleton.set_image(layer, random.choice(list(Body)).get_image_path())
+                case AvatarLayer.head: 
+                    self.character_singleton.set_color(layer, head_color)
+                    self.character_singleton.set_image(layer, random.choice(list(Head)).get_image_path())
+                case AvatarLayer.eyes: 
+                    self.character_singleton.set_color(layer, random.choice(Colors.eyes_colors))
+                    self.character_singleton.set_image(layer, random.choice(list(Eyes)).get_image_path())
+                case AvatarLayer.mouth: 
+                    rgb_color = ImageColor.getrgb(head_color)
+                    mouth_color = (rgb_color[0] - 30, rgb_color[1] - 30, rgb_color[2] - 30, 255)
+                    self.character_singleton.set_color(AvatarLayer.mouth, rgb2hex(mouth_color))  
+                    self.character_singleton.set_image(layer, random.choice(list(Mouth)).get_image_path())
+                case AvatarLayer.front_hair: 
+                    self.character_singleton.set_color(layer, hair_color)
+                    self.character_singleton.set_image(layer, random.choice(list(HairFront)).get_image_path())
+
+
+
+    def add_to_history(self):
+        save_object({
+            AvatarLayer.scene.name : self.character_singleton.get_layer_info(AvatarLayer.scene).__dict__,
+            AvatarLayer.back_hair.name: self.character_singleton.get_layer_info(AvatarLayer.back_hair).__dict__,
+            AvatarLayer.body.name: self.character_singleton.get_layer_info(AvatarLayer.body).__dict__,
+            AvatarLayer.head.name: self.character_singleton.get_layer_info(AvatarLayer.head).__dict__,
+            AvatarLayer.eyes.name: self.character_singleton.get_layer_info(AvatarLayer.eyes).__dict__,
+            AvatarLayer.mouth.name: self.character_singleton.get_layer_info(AvatarLayer.mouth).__dict__,
+            AvatarLayer.front_hair.name: self.character_singleton.get_layer_info(AvatarLayer.front_hair).__dict__,
+        })
 
 
     def export(self):

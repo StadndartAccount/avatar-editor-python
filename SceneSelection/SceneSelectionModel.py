@@ -1,4 +1,5 @@
 from Avatar import Scene
+import Colors
 
 class SceneSelectionModel:
     def __init__(self):
@@ -10,13 +11,7 @@ class SceneSelectionModel:
             Scene.paws,
         ]
 
-        self.colors = [
-            "#0C99BF",
-            "#33B59B",
-            "#DB4F50",
-            "#E27F57",
-            "#7966D9",
-        ]
+        self.colors = Colors.scene_colors
 
         self.selected_option = self.options[0]
         self.selected_color = self.colors[0]
