@@ -51,6 +51,7 @@ class OptionsSelectorMainFrame(tk.Frame):
         self.tabs[selected_option].pack(fill=tk.BOTH, expand=True)
         self.tabs[selected_option].update_content()
                 
+
     def update_tabs(self):
         for widget in self.tab_container_frame.winfo_children():
             widget.destroy()
@@ -59,3 +60,6 @@ class OptionsSelectorMainFrame(tk.Frame):
         selector_frame.pack(fill=tk.X)
         selector_frame.delegate = self
 
+
+    def update_content(self):
+        self.tabs[self.selected_tab].update_content()

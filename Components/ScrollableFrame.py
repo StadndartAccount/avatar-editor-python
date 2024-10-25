@@ -15,6 +15,12 @@ class ScrollableFrame(tk.Frame):
             )
         )
 
+        self.bind_all("<MouseWheel>",
+            lambda event: canvas.configure(
+                canvas.yview_scroll(int(-1*(event.delta)), "units")
+            )
+        )
+
         canvas.create_window((0, 0), window=self.scrollable_frame, anchor=tk.NW)
 
         canvas.configure(yscrollcommand=scrollbar.set)

@@ -25,8 +25,8 @@ class HairCollection(tk.Frame):
         self.hair_palette_delegate = HairPaletteDelegate()
         self.hair_palette_delegate.delegate = self
 
-        self.item_selected(self.model.selected_option)
-        self.select_new_color(self.model.selected_color)
+        self.item_selected(self.model.options[0])
+        self.select_new_color(self.model.colors[0])
 
 
     def update_content(self): 
@@ -42,7 +42,7 @@ class HairCollection(tk.Frame):
         hair_color_label = tk.Label(palette_container_frame, text="Hair")
         hair_color_label.pack(fill=tk.X, expand=True)
 
-        hair_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.colors, selected_color=self.model.selected_color, columns_number=3)
+        hair_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.colors, selected_color=self.model.get_selected_color(), columns_number=3)
         hair_palette_frame.pack(fill=tk.X, expand=True)
         hair_palette_frame.delegate = self.hair_palette_delegate
 
@@ -70,7 +70,7 @@ class HairCollection(tk.Frame):
                 
                 photo = ImageTk.PhotoImage(overlay_image)
                 
-                if option == self.model.selected_option:
+                if option == self.model.get_selected_option():
                     item_border = tk.Frame(row_frame, bg="black")
                     item_frame = tk.Button(item_border, image=photo, height=cell_side - border_width*2, width=cell_side - border_width*2)
                     item_frame.image = photo
@@ -82,7 +82,7 @@ class HairCollection(tk.Frame):
                     item_frame.pack(padx=margin, pady=margin, side=tk.LEFT)
 
 
-    def item_selected(self, hair_container: HairContainer):
+    def item_selected(self, hair_container: Hair):
         self.model.selected_option = hair_container
         self.character_singleton.set_image(AvatarLayer.front_hair, hair_container.front.get_image_path())
         self.character_singleton.set_image(AvatarLayer.back_hair, hair_container.back.get_image_path())

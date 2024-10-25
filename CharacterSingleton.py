@@ -31,7 +31,7 @@ class CharacterSingleton:
         self.layers = {
             AvatarLayer.scene: Scene.solid.get_image_path(),
             AvatarLayer.back_hair: HairFront.none.get_image_path(),
-            AvatarLayer.body: Body.slim_body_1.get_image_path(),
+            AvatarLayer.body: Clothes.slim_body_1.get_image_path(),
             AvatarLayer.head: Head.square_head.get_image_path(),
             AvatarLayer.eyes: Eyes.open.get_image_path(),
             AvatarLayer.mouth: Mouth.happy.get_image_path(),

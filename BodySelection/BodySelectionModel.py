@@ -1,26 +1,34 @@
-from Avatar import Head, Body
+from Avatar import Head, Clothes
 import Colors
-
-class Silhouette:
-    def __init__(self, body: Body, head: Head):
-        self.body: Body = body
-        self.head: Head = head
-
+from Options import Body, body_options
+from CharacterSingleton import *
 
 class BodySelectionModel:
     def __init__(self):
-        self.options: list[Silhouette] = [
-            Silhouette(Body.slim_body_3, Head.square_head),
-            Silhouette(Body.slim_body_1, Head.square_head),
-            Silhouette(Body.slim_body_2, Head.square_head),
-            Silhouette(Body.wide_body_1, Head.wide_square_head),            
-            Silhouette(Body.wide_body_2, Head.wide_square_head),            
-            Silhouette(Body.wide_body_3, Head.square_head),            
-        ]
+        self.options: list[Body] = body_options
         
-        self.body_colors = Colors.clothes_colors        
+        self.clothes_colors = Colors.clothes_colors        
         self.head_colors = Colors.head_colors
 
-        self.selected_option = self.options[0]
-        self.selected_body_color = self.body_colors[0]
-        self.selected_head_color = self.head_colors[0]
+
+    def get_selected_option(self) -> Body:
+        for option in self.options:
+            if (
+                CharacterSingleton().get_image(AvatarLayer.body) == option.clothes.get_image_path() and
+                CharacterSingleton().get_image(AvatarLayer.head) == option.head.get_image_path()
+            ):
+                return option
+            
+    
+    def get_selected_clothes_color(self) -> str:
+        for color in self.clothes_colors:
+            if CharacterSingleton().get_color(AvatarLayer.body) == color:
+                return color   
+                
+    
+    def get_selected_head_color(self) -> str:
+        for color in self.head_colors:
+            if CharacterSingleton().get_color(AvatarLayer.head) == color:
+                return color
+            
+            

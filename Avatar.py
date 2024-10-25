@@ -17,7 +17,7 @@ class Scene(enum.Enum):
             case Scene.paws: return "Assets/Scene/paws.svg"
 
 
-class Body(enum.Enum):
+class Clothes(enum.Enum):
     slim_body_1 = 0
     slim_body_2 = 1
     slim_body_3 = 2
@@ -27,12 +27,12 @@ class Body(enum.Enum):
 
     def get_image_path(self):
         match self:
-            case Body.slim_body_1: return "Assets/Body/slim body 1.svg"
-            case Body.slim_body_2: return "Assets/Body/slim body 2.svg"
-            case Body.slim_body_3: return "Assets/Body/slim body 3.svg"
-            case Body.wide_body_1: return "Assets/Body/wide body 1.svg"
-            case Body.wide_body_2: return "Assets/Body/wide body 2.svg"
-            case Body.wide_body_3: return "Assets/Body/wide body 3.svg"
+            case Clothes.slim_body_1: return "Assets/Body/slim body 1.svg"
+            case Clothes.slim_body_2: return "Assets/Body/slim body 2.svg"
+            case Clothes.slim_body_3: return "Assets/Body/slim body 3.svg"
+            case Clothes.wide_body_1: return "Assets/Body/wide body 1.svg"
+            case Clothes.wide_body_2: return "Assets/Body/wide body 2.svg"
+            case Clothes.wide_body_3: return "Assets/Body/wide body 3.svg"
 
 
 class Head(enum.Enum):

@@ -1,22 +1,25 @@
 from Avatar import Eyes, Mouth
 import Colors
-
-
-class Face:
-    def __init__(self, mouth: Mouth, eyes: Eyes):
-        self.mouth: Mouth = mouth
-        self.eyes: Eyes = eyes
+from Options import Face, face_options
+from CharacterSingleton import CharacterSingleton
+from AvatarLayer import AvatarLayer
 
 class FaceSelectionModel:
     def __init__(self):
-        self.options: list[Face] = [
-            Face(Mouth.happy, Eyes.open),
-            Face(Mouth.sad, Eyes.open),
-            Face(Mouth.happy, Eyes.half_open),
-            Face(Mouth.sad, Eyes.half_open),
-        ]
-
+        self.options: list[Face] = face_options
         self.colors = Colors.eyes_colors
 
-        self.selected_option = self.options[0]
-        self.selected_color = self.colors[0]
+
+    def get_selected_option(self) -> Face:
+        for option in self.options:
+            if (
+                CharacterSingleton().get_image(AvatarLayer.eyes) == option.eyes.get_image_path() and
+                CharacterSingleton().get_image(AvatarLayer.mouth) == option.mouth.get_image_path()
+            ):
+                return option
+            
+    
+    def get_selected_color(self) -> str:
+        for color in self.colors:
+            if CharacterSingleton().get_color(AvatarLayer.eyes) == color:
+                return color   

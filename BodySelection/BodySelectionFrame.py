@@ -33,9 +33,9 @@ class BodyCollection(tk.Frame):
         self.head_palette_delegate = HeadPaletteDelegate()
         self.head_palette_delegate.delegate = self
 
-        self.item_selected(self.model.selected_option)
-        self.select_new_color(AvatarLayer.head, self.model.selected_head_color)
-        self.select_new_color(AvatarLayer.body, self.model.selected_body_color)
+        self.item_selected(self.model.options[0])
+        self.select_new_color(AvatarLayer.head, self.model.head_colors[0])
+        self.select_new_color(AvatarLayer.body, self.model.clothes_colors[0])
 
 
     def update_content(self): 
@@ -51,14 +51,14 @@ class BodyCollection(tk.Frame):
         head_color_label = tk.Label(palette_container_frame, text="Head")
         head_color_label.pack(fill=tk.X, expand=True)
 
-        head_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.head_colors, columns_number=3, selected_color=self.model.selected_head_color)
+        head_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.head_colors, columns_number=3, selected_color=self.model.get_selected_head_color())
         head_palette_frame.pack(fill=tk.X, expand=True)
         head_palette_frame.delegate = self.head_palette_delegate
 
         body_color_label = tk.Label(palette_container_frame, text="Clothes")
         body_color_label.pack(fill=tk.X, expand=True)
 
-        body_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.body_colors, columns_number=3, selected_color=self.model.selected_body_color)
+        body_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.clothes_colors, columns_number=3, selected_color=self.model.get_selected_clothes_color())
         body_palette_frame.pack(fill=tk.X, expand=True)
         body_palette_frame.delegate = self.body_palette_delegate
 
@@ -75,7 +75,7 @@ class BodyCollection(tk.Frame):
 
             for option in row:
                 back_hair_image = self.character_singleton.get_layer_as_png(AvatarLayer.back_hair).resize((cell_side, cell_side))
-                body_image = self.image_processor.process_image(option.body.get_image_path(), self.character_singleton.get_color(AvatarLayer.body)).resize((cell_side, cell_side))
+                body_image = self.image_processor.process_image(option.clothes.get_image_path(), self.character_singleton.get_color(AvatarLayer.body)).resize((cell_side, cell_side))
                 head_image = self.image_processor.process_image(option.head.get_image_path(), self.character_singleton.get_color(AvatarLayer.head)).resize((cell_side, cell_side))
                 front_hair_image = self.character_singleton.get_layer_as_png(AvatarLayer.front_hair).resize((cell_side, cell_side))
 
@@ -88,7 +88,7 @@ class BodyCollection(tk.Frame):
 
                 photo = ImageTk.PhotoImage(overlay_image)
                 
-                if option == self.model.selected_option:
+                if option == self.model.get_selected_option():
                     item_border = tk.Frame(row_frame, bg="black")
                     item_frame = tk.Button(item_border, image=photo, height=cell_side - border_width*2, width=cell_side - border_width*2)
                     item_frame.image = photo
@@ -100,10 +100,9 @@ class BodyCollection(tk.Frame):
                     item_frame.pack(padx=margin, pady=margin, side=tk.LEFT)
 
     
-    def item_selected(self, silhouette: Silhouette):
-        self.model.selected_option = silhouette
-        self.character_singleton.set_image(AvatarLayer.body, silhouette.body.get_image_path())
-        self.character_singleton.set_image(AvatarLayer.head, silhouette.head.get_image_path())
+    def item_selected(self, body: Body):
+        self.character_singleton.set_image(AvatarLayer.body, body.clothes.get_image_path())
+        self.character_singleton.set_image(AvatarLayer.head, body.head.get_image_path())
         self.update_content()
 
 
@@ -114,12 +113,9 @@ class BodyCollection(tk.Frame):
                 mouth_color = (rgb_color[0] - 30, rgb_color[1] - 30, rgb_color[2] - 30, 255)
                 self.character_singleton.set_color(AvatarLayer.mouth, rgb2hex(mouth_color))  
                 self.character_singleton.set_color(AvatarLayer.head, new_color)  
-                self.model.selected_head_color = new_color    
             case AvatarLayer.body:
                 self.character_singleton.set_color(option, new_color)
-                self.model.selected_body_color = new_color    
             case _:
                 print("unknown case")    
                 
-        
         self.update_content()

@@ -24,8 +24,8 @@ class SceneCollection(tk.Frame):
         self.scene_palette_delegate = ScenePaletteDelegate()
         self.scene_palette_delegate.delegate = self
         
-        self.item_selected(self.model.selected_option)
-        self.select_new_color(AvatarLayer.scene, self.model.selected_color)
+        self.item_selected(self.model.options[0])
+        self.select_new_color(AvatarLayer.scene, self.model.colors[0])
 
 
     def update_content(self): 
@@ -41,7 +41,7 @@ class SceneCollection(tk.Frame):
         scene_color_label = tk.Label(palette_container_frame, text="Scene")
         scene_color_label.pack(fill=tk.X, expand=False)
 
-        scene_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.colors, selected_color=self.model.selected_color, columns_number=3)
+        scene_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.colors, selected_color=self.model.get_selected_color(), columns_number=3)
         scene_palette_frame.pack(fill=tk.X, expand=False)
         scene_palette_frame.delegate = self.scene_palette_delegate
 
@@ -60,7 +60,7 @@ class SceneCollection(tk.Frame):
                 scene_image = self.image_processor.process_image(option.get_image_path(), self.character_singleton.get_color(AvatarLayer.scene)).resize((cell_side, cell_side))
                 photo = ImageTk.PhotoImage(scene_image)
                 
-                if option == self.model.selected_option:
+                if option == self.model.get_selected_option():
                     item_border = tk.Frame(row_frame, bg="black")
                     item_frame = tk.Button(item_border, image=photo, height=cell_side - border_width*2, width=cell_side - border_width*2)
                     item_frame.image = photo

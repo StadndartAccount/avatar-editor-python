@@ -25,8 +25,8 @@ class FaceCollection(tk.Frame):
         self.face_palette_delegate = FacePaletteDelegate()
         self.face_palette_delegate.delegate = self
 
-        self.item_selected(self.model.selected_option)
-        self.select_new_color(AvatarLayer.eyes, self.model.selected_color)
+        self.item_selected(self.model.options[0])
+        self.select_new_color(AvatarLayer.eyes, self.model.colors[0])
 
 
     def update_content(self): 
@@ -42,7 +42,7 @@ class FaceCollection(tk.Frame):
         face_color_label = tk.Label(palette_container_frame, text="Face")
         face_color_label.pack(fill=tk.X, expand=True)
 
-        face_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.colors, selected_color=self.model.selected_color, columns_number=3)
+        face_palette_frame = PaletteFrame(palette_container_frame, colors=self.model.colors, selected_color=self.model.get_selected_color(), columns_number=3)
         face_palette_frame.pack(fill=tk.X, expand=True)
         face_palette_frame.delegate = self.face_palette_delegate
 
@@ -74,7 +74,7 @@ class FaceCollection(tk.Frame):
                 
                 photo = ImageTk.PhotoImage(overlay_image)
                 
-                if option == self.model.selected_option:
+                if option == self.model.get_selected_option():
                     item_border = tk.Frame(row_frame, bg="black")
                     item_frame = tk.Button(item_border, image=photo, height=cell_side - border_width*2, width=cell_side - border_width*2)
                     item_frame.image = photo
